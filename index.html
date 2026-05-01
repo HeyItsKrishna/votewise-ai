@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoteWise — Election Education Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════
+       SIDEBAR NAV
+  ══════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🗳</span>
+        <span class="logo-text">VoteWise</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">✕</button>
+    </div>
+
+    <nav class="quick-topics">
+      <p class="nav-label">Quick Topics</p>
+      <button class="topic-btn" data-prompt="How do I register to vote for the first time?">
+        <span class="topic-icon">📋</span> Voter Registration
+      </button>
+      <button class="topic-btn" data-prompt="What documents do I need to vote?">
+        <span class="topic-icon">📄</span> Required Documents
+      </button>
+      <button class="topic-btn" data-prompt="How does voting day work? What should I expect?">
+        <span class="topic-icon">🗓</span> Voting Day Guide
+      </button>
+      <button class="topic-btn" data-prompt="What are the different ways I can vote? (in-person, mail, early)">
+        <span class="topic-icon">📬</span> Voting Methods
+      </button>
+      <button class="topic-btn" data-prompt="Explain the election timeline from candidates announcing to results.">
+        <span class="topic-icon">⏱</span> Election Timeline
+      </button>
+      <button class="topic-btn" data-prompt="Am I eligible to vote? What are the requirements?">
+        <span class="topic-icon">✅</span> Eligibility Check
+      </button>
+      <button class="topic-btn" data-prompt="Find polling booths near me. I'm in New Delhi, India.">
+        <span class="topic-icon">📍</span> Find Polling Booth
+      </button>
+      <button class="topic-btn" data-prompt="Explain how votes are counted and results are declared.">
+        <span class="topic-icon">🔢</span> How Votes Are Counted
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="mode-toggle-wrap">
+        <span class="mode-label">Simple Language</span>
+        <label class="toggle-switch" aria-label="Toggle simple language mode">
+          <input type="checkbox" id="simpleMode" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="mode-toggle-wrap">
+        <span class="mode-label">Dark Mode</span>
+        <label class="toggle-switch" aria-label="Toggle dark mode">
+          <input type="checkbox" id="darkMode" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════
+       MAIN APP
+  ══════════════════════════════ -->
+  <main class="app-shell">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-title">
+        <span class="topbar-logo">🗳</span>
+        <span>VoteWise</span>
+      </div>
+      <div class="topbar-actions">
+        <select id="languageSelect" class="lang-select" aria-label="Select language">
+          <option value="en">🌐 English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="ar">العربية</option>
+          <option value="zh">中文</option>
+          <option value="ta">தமிழ்</option>
+          <option value="te">తెలుగు</option>
+        </select>
+        <button class="clear-btn" id="clearChat" title="Clear conversation">↺ New Chat</button>
+      </div>
+    </header>
+
+    <!-- CONTEXT BAR (country/user type) -->
+    <div class="context-bar" id="contextBar">
+      <div class="context-chips">
+        <span class="context-label">Context:</span>
+        <button class="chip active" data-type="country" data-value="">🌍 Select Country</button>
+        <button class="chip" data-type="usertype" data-value="first-time">First-time Voter</button>
+        <button class="chip" data-type="usertype" data-value="student">Student</button>
+        <button class="chip" data-type="usertype" data-value="senior">Senior Citizen</button>
+        <button class="chip" data-type="usertype" data-value="nri">Overseas Voter</button>
+      </div>
+    </div>
+
+    <!-- CHAT WINDOW -->
+    <section class="chat-window" id="chatWindow" role="log" aria-live="polite" aria-label="Chat messages">
+
+      <!-- WELCOME STATE -->
+      <div class="welcome-state" id="welcomeState">
+        <div class="welcome-badge">AI-Powered · Non-Partisan · Free</div>
+        <h1 class="welcome-title">Your Election<br/>Education Guide</h1>
+        <p class="welcome-sub">Ask me anything about voting, elections, registration,<br/>and civic participation — in plain language.</p>
+
+        <div class="suggestion-grid">
+          <button class="suggest-card" data-prompt="I'm voting for the first time. Where do I start?">
+            <span class="suggest-icon">🌟</span>
+            <strong>First-time voter?</strong>
+            <span>Get a complete beginner's roadmap</span>
+          </button>
+          <button class="suggest-card" data-prompt="What documents do I need to bring on voting day?">
+            <span class="suggest-icon">📄</span>
+            <strong>Documents needed</strong>
+            <span>Know what to bring to the booth</span>
+          </button>
+          <button class="suggest-card" data-prompt="Can I vote by mail? How does that work?">
+            <span class="suggest-icon">📬</span>
+            <strong>Mail-in voting</strong>
+            <span>Step-by-step absentee guide</span>
+          </button>
+          <button class="suggest-card" data-prompt="What is the election timeline? From registration to results?">
+            <span class="suggest-icon">📅</span>
+            <strong>Election timeline</strong>
+            <span>Key dates and milestones</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MESSAGES CONTAINER -->
+      <div class="messages" id="messages"></div>
+
+    </section>
+
+    <!-- INPUT AREA -->
+    <footer class="input-area">
+      <div class="input-wrap">
+        <textarea
+          id="userInput"
+          class="user-textarea"
+          placeholder="Ask about voting, registration, eligibility..."
+          rows="1"
+          maxlength="1000"
+          aria-label="Type your message"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" aria-label="Send message">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <p class="input-disclaimer">VoteWise provides general civic education. Always verify with official government sources. Non-partisan · Non-political.</p>
+    </footer>
+
+  </main>
+
+  <!-- COUNTRY MODAL -->
+  <div class="modal-overlay" id="countryModal" role="dialog" aria-modal="true" aria-label="Select your country">
+    <div class="modal">
+      <h2>Select Your Country</h2>
+      <p>This helps personalize election information for your region.</p>
+      <input type="text" id="countrySearch" placeholder="Search country..." class="modal-search" aria-label="Search country" />
+      <div class="country-list" id="countryList"></div>
+      <button class="modal-close" id="modalClose">Cancel</button>
+    </div>
+  </div>
+
+  <!-- MAP MODAL -->
+  <div class="modal-overlay" id="mapModal" role="dialog" aria-modal="true" aria-label="Polling booth map">
+    <div class="modal modal-wide">
+      <h2>📍 Polling Booth Locator</h2>
+      <p class="map-note">Showing simulated polling locations. In production, integrate with your Election Commission's official API.</p>
+      <div id="googleMap" class="map-container"></div>
+      <button class="modal-close" id="mapClose">Close</button>
+    </div>
+  </div>
+
+  <!-- OVERLAY BACKDROP -->
+  <div class="overlay-backdrop" id="overlayBackdrop"></div>
+
+  <script src="/js/app.js"></script>
+<script src="/js/map.js"></script>
+</body>
+</html>
