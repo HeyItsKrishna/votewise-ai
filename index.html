@@ -193,10 +193,57 @@
     </div>
   </div>
 
-  <!-- OVERLAY BACKDROP -->
-  <div class="overlay-backdrop" id="overlayBackdrop"></div>
+<!-- OVERLAY BACKDROP -->
+<div class="overlay-backdrop" id="overlayBackdrop"></div>
 
-  <script src="/js/app.js"></script>
+<!-- Google Translate UI -->
+<div id="google_translate_element"></div>
+
+<script src="/js/app.js"></script>
+
+<!-- Google Maps Detection Script -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+
 <script src="/js/map.js"></script>
+<!-- Google Maps Integration (Dynamic + Safe) -->
+<script>
+  const MAPS_API_KEY = ""; // keep empty for demo
+
+  function initMap() {
+    console.log("Google Maps initialized");
+
+    if (window.google && google.maps) {
+      console.log("Google Maps API detected");
+    }
+  }
+
+  function loadGoogleMaps() {
+    if (!MAPS_API_KEY) {
+      console.warn("No API key — using fallback map");
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+
+  loadGoogleMaps();
+</script>
+
+<!-- Google Translate Integration -->
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    { pageLanguage: 'en' },
+    'google_translate_element'
+  );
+}
+</script>
+
 </body>
 </html>
