@@ -111,6 +111,26 @@ https://votewise-574491112096.asia-south1.run.app
 
 ---
 
+
+## ☁️ Google Services Integration
+
+VoteWise AI integrates multiple Google services:
+
+- **Google Maps JavaScript API**  
+  Used for polling booth visualization and location-based assistance.  
+  Runs in fallback mode when an API key is not configured.
+
+- **Google Translate Element API**  
+  Enables multi-language accessibility for users.
+
+- **Google Fonts**  
+  Improves typography and readability.
+
+This approach ensures secure implementation without exposing API keys while maintaining functional demo behavior.
+
+---
+
+
 ## 📁 Project Structure
 
 ```
@@ -400,10 +420,19 @@ VoteWise:
 
 ## 🧪 Testing
 
-- Manual testing across Chrome and Edge browsers
-- Verified UI responsiveness across screen sizes
-- Validated fallback behavior when APIs are unavailable
-- Tested key user flows (first-time voter, polling lookup, document queries)
+Core functionality is validated using a lightweight automated test suite:
+
+```bash
+node js/test.js
+```
+
+Validates:
+- Input sanitization  
+- Message validation  
+- Intent detection  
+- Rate limiting  
+
+All tests pass successfully.
 
 ---
 
