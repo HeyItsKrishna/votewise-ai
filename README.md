@@ -37,6 +37,16 @@ There is no single, conversational, non-partisan platform that guides a citizen 
 
 It's like having a **knowledgeable civic educator in your pocket** — available 24/7, completely non-partisan.
 
+---
+
+## 🧩 Challenge Vertical
+
+This project is built under the "Civic Assistance / Public Services" vertical.
+
+It focuses on helping citizens navigate the voting process through AI-driven guidance and structured workflows.
+
+---
+
 
 ## 🚀 Live Demo
 https://votewise-574491112096.asia-south1.run.app
@@ -385,6 +395,15 @@ VoteWise:
 - Application runs in demo mode without exposing API keys
 - Google Maps integration uses fallback rendering when API key is not configured
 - Election information is general/educational — users should verify specific dates/requirements with their official Election Commission
+
+---
+
+## 🧪 Testing
+
+- Manual testing across Chrome and Edge browsers
+- Verified UI responsiveness across screen sizes
+- Validated fallback behavior when APIs are unavailable
+- Tested key user flows (first-time voter, polling lookup, document queries)
 
 ---
 
