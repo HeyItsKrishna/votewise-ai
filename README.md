@@ -37,6 +37,11 @@ There is no single, conversational, non-partisan platform that guides a citizen 
 
 It's like having a **knowledgeable civic educator in your pocket** — available 24/7, completely non-partisan.
 
+
+## 🚀 Live Demo
+https://votewise-574491112096.asia-south1.run.app
+
+
 ---
 
 ## ✨ Features
@@ -84,12 +89,12 @@ It's like having a **knowledgeable civic educator in your pocket** — available
 
 | Layer | Technology |
 |---|---|
-| **AI Engine** | Anthropic Claude API (`claude-sonnet-4-20250514`) |
+| **AI Engine** | Anthropic Claude API (simulated via fallback mode) |
 | **Frontend** | Vanilla HTML5, CSS3, JavaScript (ES6+) |
-| **Maps** | Google Maps JavaScript API |
+| **Maps** | Google Maps JavaScript API (with fallback rendering) |
 | **Translation** | Google Translate Element API |
 | **Fonts** | Google Fonts (Playfair Display + DM Sans) |
-| **Hosting** | Static (GitHub Pages, Netlify, Vercel, Google Firebase) |
+| **Deployment** | Docker + Nginx on Google Cloud Run |
 | **Build** | Zero build step — pure static files |
 
 **No frameworks. No bundlers. No npm install.** Just open and run.
@@ -121,18 +126,21 @@ git clone https://github.com/YOUR_USERNAME/votewise.git
 cd votewise
 ```
 
-### 2. Configure API Keys
+### 2. AI Integration Note
 
-**Anthropic API Key** (for AI responses):
+This project runs in demo mode without exposing API keys.
 
-Open `js/app.js` and the key is handled via the configured proxy in this environment.
+- AI responses are handled using fallback logic in the frontend  
+- No API keys are stored or exposed in the repository  
 
-For self-hosting, add to your server environment:
-```env
-ANTHROPIC_API_KEY=your_key_here
+In a production environment:
+
+- AI requests are routed through a secure backend service  
+- API keys are stored in environment variables  
+- The frontend communicates with the backend instead of directly calling external APIs  
+
+This ensures security and prevents credential leakage in public deployments.
 ```
-
-Then update the fetch call in `app.js` to route through your backend.
 
 **Google Maps API Key** (for live maps):
 
@@ -374,8 +382,8 @@ VoteWise:
 ## 📋 Assumptions
 
 - Users have a modern browser (Chrome 90+, Firefox 88+, Safari 14+)
-- Anthropic API key is configured (demo fallback included for testing)
-- Google Maps API key is configured (beautiful fallback included if not)
+- Application runs in demo mode without exposing API keys
+- Google Maps integration uses fallback rendering when API key is not configured
 - Election information is general/educational — users should verify specific dates/requirements with their official Election Commission
 
 ---
