@@ -8,6 +8,59 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Google Translate init — loaded early so widget is ready -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,hi,es,fr,de,ar,zh-CN,ta,te',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false,
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+  <style>
+    /* ── Google Translate Widget — always visible in topbar ── */
+    #google_translate_element {
+      display: inline-flex;
+      align-items: center;
+    }
+    #google_translate_element .goog-te-gadget {
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 0 !important; /* hide "Powered by Google" text */
+      color: transparent;
+    }
+    #google_translate_element .goog-te-gadget-simple {
+      background: var(--cream, #FAF7F2);
+      border: 1px solid var(--cream-dark, #F0EBE1);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 13px !important;
+      cursor: pointer;
+    }
+    #google_translate_element .goog-te-gadget-simple span {
+      font-size: 13px;
+      color: var(--text-primary, #0D1B2A);
+    }
+    .translate-label {
+      font-size: 12px;
+      color: var(--muted, #8A9BB0);
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    body.dark #google_translate_element .goog-te-gadget-simple {
+      background: var(--navy-soft, #1E3048);
+      border-color: rgba(201,150,58,0.2);
+    }
+    body.dark #google_translate_element .goog-te-gadget-simple span {
+      color: var(--muted-soft, #B4C3D3);
+    }
+    /* Map modal override — taller for interactive map */
+    #mapModal .map-container { height: 380px; }
+  </style>
 </head>
 <body>
 
@@ -84,17 +137,32 @@
         <span>VoteWise</span>
       </div>
       <div class="topbar-actions">
-        <select id="languageSelect" class="lang-select" aria-label="Select language">
-          <option value="en">🌐 English</option>
-          <option value="hi">हिन्दी</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="ar">العربية</option>
-          <option value="zh">中文</option>
-          <option value="ta">தமிழ்</option>
-          <option value="te">తెలుగు</option>
-        </select>
+
+        <!-- Control 1: AI Response Language -->
+<div class="topbar-control-group" title="Controls the language of AI responses">
+  <span class="topbar-control-label">🤖 AI Responses</span>
+  <select id="languageSelect" class="lang-select" aria-label="Select AI response language">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="de">Deutsch</option>
+    <option value="ar">العربية</option>
+    <option value="zh">中文</option>
+    <option value="ta">தமிழ்</option>
+    <option value="te">తెలుగు</option>
+  </select>
+  </div>
+
+  
+        <!-- Divider -->
+  <div class="topbar-divider"></div>
+
+<!-- Control 2: Page Translation -->
+  <div class="topbar-control-group" title="Translates the entire page UI">
+  <span class="topbar-control-label">🌐 Translate Page</span>
+  <div id="google_translate_element"></div>
+  </div>
         <button class="clear-btn" id="clearChat" title="Clear conversation">↺ New Chat</button>
       </div>
     </header>
@@ -183,67 +251,35 @@
     </div>
   </div>
 
-  <!-- MAP MODAL -->
+  <!-- MAP MODAL — Google Maps Polling Booth Locator -->
   <div class="modal-overlay" id="mapModal" role="dialog" aria-modal="true" aria-label="Polling booth map">
     <div class="modal modal-wide">
       <h2>📍 Polling Booth Locator</h2>
-      <p class="map-note">Showing simulated polling locations. In production, integrate with your Election Commission's official API.</p>
+      <p class="map-note">
+        Interactive map powered by <strong>Google Maps API</strong>.
+        Click any marker for booth details and directions.
+        Runs in demo mode — add your Google Maps API key in <code>js/map.js</code> for live data.
+      </p>
       <div id="googleMap" class="map-container"></div>
       <button class="modal-close" id="mapClose">Close</button>
     </div>
   </div>
 
-<!-- OVERLAY BACKDROP -->
-<div class="overlay-backdrop" id="overlayBackdrop"></div>
+  <!-- OVERLAY BACKDROP -->
+  <div class="overlay-backdrop" id="overlayBackdrop"></div>
 
-<!-- Google Translate UI -->
-<div id="google_translate_element"></div>
+  <!-- App JS -->
+  <script src="/js/app.js"></script>
 
-<script src="/js/app.js"></script>
+  <!-- Map JS (Google Maps integration + interactive fallback) -->
+  <script src="/js/map.js"></script>
 
-<!-- Google Maps Detection Script -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
-
-<script src="/js/map.js"></script>
-<!-- Google Maps Integration (Dynamic + Safe) -->
-<script>
-  const MAPS_API_KEY = ""; // keep empty for demo
-
-  function initMap() {
-    console.log("Google Maps initialized");
-
-    if (window.google && google.maps) {
-      console.log("Google Maps API detected");
-    }
-  }
-
-  function loadGoogleMaps() {
-    if (!MAPS_API_KEY) {
-      console.warn("No API key — using fallback map");
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&callback=initMap`;
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }
-
-  loadGoogleMaps();
-</script>
-
-<!-- Google Translate Integration -->
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement(
-    { pageLanguage: 'en' },
-    'google_translate_element'
-  );
-}
-</script>
+  <!--
+    Google Maps API — loads dynamically when modal is opened (see map.js initMap).
+    Fallback rendering is used when API_KEY is not configured.
+    To enable live maps: set API_KEY in js/map.js and enable Maps JavaScript API
+    in Google Cloud Console: https://console.cloud.google.com/
+  -->
 
 </body>
 </html>

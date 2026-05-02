@@ -484,7 +484,16 @@ async function sendMessage(text) {
   userInput.value = ''; autoResizeTextarea();
   state.isTyping = true; sendBtn.disabled = true;
   appendMessage('user', trimmed);
-  showTyping();
+
+if (isLocationQuery(trimmed)) {
+  openMapModal();
+  state.isTyping = false;
+  sendBtn.disabled = false;
+  userInput.focus();
+  return;
+}
+
+showTyping();
 
   // Feature 1: Detect journey trigger
   if (!state.journey.active && isJourneyTrigger(trimmed)) {
