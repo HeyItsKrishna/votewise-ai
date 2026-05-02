@@ -39,6 +39,16 @@ It's like having a **knowledgeable civic educator in your pocket** — available
 
 ---
 
+## ⚡ Key Highlights
+
+- 🧭 Guided voting journey (not just Q&A chatbot)
+- 🌐 Dual-language system (AI response + full UI translation)
+- 📍 Interactive polling booth locator with fallback rendering
+- ⚡ Event-driven frontend architecture (no inline JS, no globals)
+- ☁️ Fully deployed on Google Cloud Run (Docker + Nginx)
+
+---
+
 ## 🧩 Challenge Vertical
 
 This project is built under the "Civic Assistance / Public Services" vertical.
@@ -49,10 +59,12 @@ It focuses on helping citizens navigate the voting process through AI-driven gui
 
 
 ## 🚀 Live Demo
-https://votewise-574491112096.asia-south1.run.app
+👉 https://votewise-574491112096.asia-south1.run.app
 
+*Best viewed on desktop for full map + chat experience*
 
 ---
+
 
 ## ✨ Features
 
@@ -75,9 +87,10 @@ https://votewise-574491112096.asia-south1.run.app
 - Direct "Get Directions" link integration
 
 ### 🌐 Google Translate Integration
-- Supports 9 languages: English, Hindi, Spanish, French, German, Arabic, Chinese, Tamil, Telugu
-- AI responses adapt to selected language
-- Dynamic script loading (no performance overhead when not used)
+- Full-page UI translation using Google Translate Element API  
+- Works alongside AI response language (dual-language control system)  
+- Dynamically loaded to avoid unnecessary performance overhead  
+- Enhances accessibility for multilingual users without altering core logic
 
 ### ♿ Accessibility
 - Simple Language Mode (6th-grade reading level toggle)
@@ -92,6 +105,18 @@ https://votewise-574491112096.asia-south1.run.app
 - Dark mode support
 - Smooth animations and micro-interactions
 - Mobile-friendly chat interface
+
+### 🌐 Dual Language Control System (NEW)
+
+VoteWise separates language functionality into two clear controls:
+
+- 🤖 **AI Response Language**  
+  Controls the language in which the AI assistant responds
+
+- 🌐 **Page Translation (Google Translate)**  
+  Translates the entire UI (buttons, labels, interface)
+
+This eliminates user confusion and improves accessibility by clearly distinguishing between **content language** and **interface language**.
 
 ---
 
@@ -111,6 +136,13 @@ https://votewise-574491112096.asia-south1.run.app
 
 ---
 
+## ☁️ Cloud Deployment
+
+- Deployed using **Docker + Nginx on Google Cloud Run**
+- Fully containerized static frontend
+- Supports scalable, serverless hosting
+
+---
 
 ## ☁️ Google Services Integration
 
@@ -394,9 +426,21 @@ VoteWise:
 
 ---
 
+## 🧠 Frontend Architecture Improvements
+
+Recent refactors significantly improved performance, scalability, and code quality:
+
+- Replaced inline `onclick` handlers with **event delegation** for better scalability  
+- Removed global dependencies (`window.*`) to improve modularity and scope safety  
+- Introduced **modular popup rendering** for cleaner UI composition  
+- Optimized DOM interactions to reduce redundancy and improve maintainability  
+
+These changes result in a more **clean, maintainable, and production-ready frontend architecture**.
+---
+
 ## 🔮 Future Improvements
 
-1. **Backend API** — Secure Anthropic key server-side (Node.js/Python)
+1. **Backend API Integration** — Secure Anthropic API key via server-side architecture (Node.js/Python)
 2. **Election Commission APIs** — Live integration with ECI (India), FEC (USA), Electoral Commission (UK)
 3. **Real-time Polling Data** — Live booth wait times via crowd-sourcing
 4. **Push Notifications** — Election day reminders (PWA)
